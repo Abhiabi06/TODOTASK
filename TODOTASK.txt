@@ -1,0 +1,74 @@
+class Task:
+    def __init__(self, description):
+        self.description = description
+        self.completed = False
+
+class ToDoList:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, description):
+        task = Task(description)
+        self.tasks.append(task)
+
+    def mark_as_completed(self, task_index):
+        if 0 <= task_index < len(self.tasks):
+            self.tasks[task_index].completed = True
+        else:
+            print("Invalid task index!")
+
+    def update_task_description(self, task_index, new_description):
+        if 0 <= task_index < len(self.tasks):
+            self.tasks[task_index].description = new_description
+        else:
+            print("Invalid task index!")
+
+    def remove_task(self, task_index):
+        if 0 <= task_index < len(self.tasks):
+            del self.tasks[task_index]
+        else:
+            print("Invalid task index!")
+
+    def display_tasks(self):
+        print("To-Do List:")
+        for index, task in enumerate(self.tasks):
+            status = " [X] " if task.completed else " [ ] "
+            print(f"{index + 1}.{status} {task.description}")
+
+def main():
+    todo_list = ToDoList()
+
+    while True:
+        print("\nOptions:")
+        print("1. Add Task")
+        print("2. Mark Task as Completed")
+        print("3. Update Task Description")
+        print("4. Remove Task")
+        print("5. Display Tasks")
+        print("6. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            description = input("Enter task description: ")
+            todo_list.add_task(description)
+        elif choice == "2":
+            task_index = int(input("Enter task index to mark as completed: ")) - 1
+            todo_list.mark_as_completed(task_index)
+        elif choice == "3":
+            task_index = int(input("Enter task index to update: ")) - 1
+            new_description = input("Enter new task description: ")
+            todo_list.update_task_description(task_index, new_description)
+        elif choice == "4":
+            task_index = int(input("Enter task index to remove: ")) - 1
+            todo_list.remove_task(task_index)
+        elif choice == "5":
+            todo_list.display_tasks()
+        elif choice == "6":
+            print("Exiting the To-Do List application. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
